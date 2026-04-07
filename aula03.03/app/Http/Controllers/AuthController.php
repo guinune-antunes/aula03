@@ -72,4 +72,38 @@ class AuthController extends Controller
 
         return redirect()->to('/');
     }
+    public function cadastro(){
+        return view('cadastro');
+    }
+    public function cadastroSubmit(Request $request){
+        $request->validate(
+            [
+                'text_name'=>'required|min:3|max:200',
+                'text_email'=>'required|min:3|max:200|email|unique:users,email',
+                'text_password'=>'required|min:3|max:200',
+                'text_password_confirm'=>'required|min:3|max:200|same:text_password',
+                'text_cpf'=>'required|min:11|max:11|unique:users,cpf',
+                'text_Nome_da_Rua'=>'required|min:3|max:200|email|unique:users,user_log',   
+                'text_Numero'=>'required|min:1|max:10',
+                'text_Bairro'=>'required|min:3|max:200',
+                'text_Cidade'=>'required|min:3|max:200',
+                'text_Estado'=>'required|min:2|max:2',
+                'text_CEP'=>'required|min:8|max:8',
+            ]
+        );
+        $user=new User();
+        $user->name=$request->text_name;
+        $user->email=$request->text_email;
+        $user->password=$request->text_password;
+        $user->cpf=$request->text_cpf;
+        $user->Rua=$request->text_Nome_da_Rua;        
+        $user->numero=$request->text_Numero;
+        $user->bairro=$request->text_Bairro;
+        $user->cidade=$request->text_Cidade;
+        $user->estado=$request->text_Estado;
+        $user->cep=$request->text_CEP;
+
+        $user->save();
+        return redirect()->route('login');  
+    }
 }

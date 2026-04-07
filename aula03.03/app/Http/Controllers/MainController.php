@@ -50,4 +50,25 @@ class MainController extends Controller
         $note->save();
         return redirect()->route('home');
     }
+    public function cadastro(){
+        return view('cadastro');
+    }
+    public function cadastroSubmit(Request $request){
+        $request->validate(
+            [
+                'text_name'=>'required|min:3|max:200',
+                'text_email'=>'required|min:3|max:200|email|unique:users,email',
+                'text_password'=>'required|min:3|max:200',
+                'text_password_confirm'=>'required|min:3|max:200|same:text_password',
+                'text_cpf'=>'required|min:11|max:11|unique:users,cpf',
+            ]
+        );
+        $user=new User();
+        $user->name=$request->text_name;
+        $user->email=$request->text_email;
+        $user->password=$request->text_password;
+        $user->cpf=$request->text_cpf;
+        $user->save();
+        return redirect()->route('login');  
+    }
 }

@@ -29,6 +29,11 @@
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-secondary w-100">LOGIN</button>
                             </div>
+
+                            <div class="mb-3">
+                                <a href="{{ route('cadastro') }}">CADASTRAR</a>
+                            </div>
+
                         </form>
                         @if($errors->any())
                             <div class="alert alert-danger">
